@@ -11,6 +11,10 @@ class TimerViewController: UIViewController {
 
     private lazy var views = Views()
     
+    internal var timersArray = [String: String]()
+    
+    internal let idCell = "identifierCell"
+    
     private lazy var addingTimerLabel = views.addingTimerLabel
 
     internal lazy var nameTimerTextField = views.nameTimerTextField
@@ -26,6 +30,7 @@ class TimerViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "Мульти таймер"
         addButton.addTarget(self, action: #selector(dismissKeyboardAndAction), for: .touchUpInside)
+        timersTableView.register(CustomCell.self, forCellReuseIdentifier: idCell)
         addConstraints()
         addTappedAround()
         delegateAndDataSource()

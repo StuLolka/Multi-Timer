@@ -12,12 +12,19 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
         5
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.bounds.height / 10
+    }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath) as? CustomCell else {return UITableViewCell()}
+    
+        cell.nameLabel.text = "test"
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection
-                                section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Таймеры"
     }
     
