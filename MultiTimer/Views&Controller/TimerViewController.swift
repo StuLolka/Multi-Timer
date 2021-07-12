@@ -9,9 +9,13 @@ import UIKit
 
 class TimerViewController: UIViewController {
     
+    internal let nameError = "Имена должны различаться!"
+    
     public var timer: Timer?
     
-    public var taskArray: [Task] = [] {didSet {timersTableView.reloadData()}}
+    public var taskArray: [Task] = [] {didSet {
+        taskArray = sortChannelsByDate(messagesArray: taskArray)
+        timersTableView.reloadData()}}
     
     private lazy var views = Views()
     
@@ -83,11 +87,22 @@ class TimerViewController: UIViewController {
         ])
     }
     
+    private func sortChannelsByDate(messagesArray: [Task]) -> [Task] {
+        
+        let arrayWillReturn = taskArray.sorted { (secondsLeft1, secondsLeft2) -> Bool in
+            let date1 = secondsLeft1.secondsLeft
+            let date2 = secondsLeft2.secondsLeft
+            return date1 > date2
+        }
+        return arrayWillReturn
+    }
+    
     @objc func dismissKeyboardAndAction(sender: Any) {
         view.endEditing(true)
         if sender as! NSObject == addButton {
             guard let name = nameTimerTextField.text else {return }
             guard let time = timeInSecTextField.text else {return }
+            guard name != nameError else {return }
             guard name.trimmingCharacters(in: .whitespacesAndNewlines) != "", time.trimmingCharacters(in: .whitespacesAndNewlines) != "" else {
                 if name.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                     nameTimerTextField.layer.borderColor = UIColor.red.cgColor
@@ -97,29 +112,37 @@ class TimerViewController: UIViewController {
                 }
                 return
             }
+            var count = 0
+            
+            while count < taskArray.count {
+                if taskArray[count].name == name {
+                    nameTimerTextField.text = nameError
+                    nameTimerTextField.layer.borderColor = UIColor.red.cgColor
+                    return
+                }
+                count += 1
+            }
             guard time != "0" else {
                 timeInSecTextField.layer.borderColor = UIColor.red.cgColor
                 return }
             guard let seconds = Int(time) else {return }
+            nameTimerTextField.text = ""
+            timeInSecTextField.text = ""
             createTimer()
             DispatchQueue.main.async {
                 let task = Task(name: name, timeLeft: seconds)
                 self.taskArray.append(task)
             }
+            
         }
     }
     
     
     func createTimer() {
         if timer == nil {
-            let timer = Timer(timeInterval: 1.0,
-                              target: self,
-                              selector: #selector(updateTimer),
-                              userInfo: nil,
-                              repeats: true)
+            let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .common)
             timer.tolerance = 0.1
-            
             self.timer = timer
         }
     }
@@ -136,7 +159,12 @@ class TimerViewController: UIViewController {
         
         for indexPath in visibleRowsIndexPaths {
             if let cell = timersTableView.cellForRow(at: indexPath) as? CustomCell {
-                cell.updateTime()
+                if !cell.pauseButton.isPressed {
+                    cell.updateTime()
+                }
+//                else {
+//                    taskArray = sortChannelsByDate(messagesArray: taskArray)
+//                }
                 if taskArray[indexPath.row].completed {
                     taskArray.remove(at: indexPath.row)
                 }

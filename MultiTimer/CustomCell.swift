@@ -33,6 +33,7 @@ final class CustomCell: UITableViewCell {
     public let timeLeftLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
         return label
     }()
     
@@ -60,28 +61,28 @@ final class CustomCell: UITableViewCell {
             pauseButton.widthAnchor.constraint(equalTo: heightAnchor),
             
             timeLeftLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
-            timeLeftLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            timeLeftLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            timeLeftLabel.leftAnchor.constraint(equalTo: pauseButton.rightAnchor, constant: 5)
             
         ])
         
     }
     
-    func updateTime() {
+    public func updateTime() {
         guard let task = task else {
             return
         }
-        let time = Date().timeIntervalSince(task.creationDate)
 
-        let test = task.timeLeft - Int(time)
-        
-        if test <= 0 {
+        let secondsLeft = task.secondsLeft
+        if secondsLeft <= 0 {
             timeLeftLabel.text = "0"
             task.completed = true
             return
         }
-        let hours = test / 3600
-        let minutes = test / 60 % 60
-        let seconds = test % 60
+        
+        let hours = secondsLeft / 3600
+        let minutes = secondsLeft / 60 % 60
+        let seconds = secondsLeft % 60
         
         var times: [String] = []
         if hours > 0 {
@@ -93,6 +94,7 @@ final class CustomCell: UITableViewCell {
         times.append("\(seconds)s")
 
         timeLeftLabel.text = times.joined(separator: " ")
+        task.secondsLeft -= 1
         
     }
     

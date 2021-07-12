@@ -20,7 +20,7 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath) as? CustomCell else {return UITableViewCell()}
         cell.task = taskArray[indexPath.row]
-        cell.pauseButton.addTarget(self, action: #selector(TimerViewController.stopStartTimer), for: .touchUpInside)
+        cell.pauseButton.addTarget(self, action: #selector(stopStartTimer), for: .touchUpInside)
         cell.contentView.isUserInteractionEnabled = false
         return cell
     }

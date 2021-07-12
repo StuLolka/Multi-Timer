@@ -9,12 +9,11 @@ import Foundation
 
 final class Task {
     public let name: String
-    public var timeLeft: Int
+    public var secondsLeft: Int
     public var completed = false
-    public let creationDate = Date()
     
     init(name: String, timeLeft: Int) {
         self.name = name
-        self.timeLeft = timeLeft
+        self.secondsLeft = timeLeft
     }
 }
