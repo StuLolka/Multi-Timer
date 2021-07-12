@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20115122269AF3D7004B699D /* ExtraPropertyUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20115121269AF3D7004B699D /* ExtraPropertyUIButton.swift */; };
+		20115126269AF4D0004B699D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20115125269AF4D0004B699D /* Task.swift */; };
 		2038D46126970BA900CF31BB /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2038D46026970BA900CF31BB /* CustomCell.swift */; };
 		209D1334269701B40003D9DD /* ExtensionForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209D1333269701B40003D9DD /* ExtensionForTableView.swift */; };
 		209D1339269705550003D9DD /* ExtensionForTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209D1338269705550003D9DD /* ExtensionForTextField.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20115121269AF3D7004B699D /* ExtraPropertyUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraPropertyUIButton.swift; sourceTree = "<group>"; };
+		20115125269AF4D0004B699D /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2038D46026970BA900CF31BB /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		209D1333269701B40003D9DD /* ExtensionForTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionForTableView.swift; sourceTree = "<group>"; };
 		209D1338269705550003D9DD /* ExtensionForTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionForTextField.swift; sourceTree = "<group>"; };
@@ -46,6 +50,8 @@
 		209D133C2697055A0003D9DD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				20115121269AF3D7004B699D /* ExtraPropertyUIButton.swift */,
+				20115125269AF4D0004B699D /* Task.swift */,
 				209D1333269701B40003D9DD /* ExtensionForTableView.swift */,
 				209D1338269705550003D9DD /* ExtensionForTextField.swift */,
 			);
@@ -76,8 +82,8 @@
 				20B013162696F67700CC4DCB /* Views&Controller */,
 				20B013032696F3C200CC4DCB /* Assets.xcassets */,
 				20B013052696F3C200CC4DCB /* LaunchScreen.storyboard */,
-				20B013082696F3C200CC4DCB /* Info.plist */,
 				2038D46026970BA900CF31BB /* CustomCell.swift */,
+				20B013082696F3C200CC4DCB /* Info.plist */,
 			);
 			path = MultiTimer;
 			sourceTree = "<group>";
@@ -170,11 +176,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				20B013102696F43700CC4DCB /* Views.swift in Sources */,
+				20115122269AF3D7004B699D /* ExtraPropertyUIButton.swift in Sources */,
 				20B012FF2696F3BF00CC4DCB /* TimerViewController.swift in Sources */,
 				20B012FB2696F3BF00CC4DCB /* AppDelegate.swift in Sources */,
 				209D1334269701B40003D9DD /* ExtensionForTableView.swift in Sources */,
 				20B012FD2696F3BF00CC4DCB /* SceneDelegate.swift in Sources */,
 				2038D46126970BA900CF31BB /* CustomCell.swift in Sources */,
+				20115126269AF4D0004B699D /* Task.swift in Sources */,
 				209D1339269705550003D9DD /* ExtensionForTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

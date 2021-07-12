@@ -9,16 +9,24 @@ import UIKit
 
 final class CustomCell: UITableViewCell {
     
+    var task: Task? {
+        didSet {
+            nameLabel.text = task?.name
+            updateTime()
+        }
+    }
+    
     public let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    public let pauseButton: UIButton = {
-        let but = UIButton()
+    public let pauseButton: ExtraPropertyButton = {
+        let but = ExtraPropertyButton()
         but.setImage(UIImage(systemName: "pause"), for: .normal)
         but.translatesAutoresizingMaskIntoConstraints = false
+        but.isUserInteractionEnabled = true
         return but
     }()
     
@@ -57,4 +65,36 @@ final class CustomCell: UITableViewCell {
         ])
         
     }
+    
+    func updateTime() {
+        guard let task = task else {
+            return
+        }
+        let time = Date().timeIntervalSince(task.creationDate)
+
+        let test = task.timeLeft - Int(time)
+        
+        if test <= 0 {
+            timeLeftLabel.text = "0"
+            task.completed = true
+            return
+        }
+        let hours = test / 3600
+        let minutes = test / 60 % 60
+        let seconds = test % 60
+        
+        var times: [String] = []
+        if hours > 0 {
+            times.append("\(hours)h")
+        }
+        if minutes > 0 {
+            times.append("\(minutes)m")
+        }
+        times.append("\(seconds)s")
+
+        timeLeftLabel.text = times.joined(separator: " ")
+        
+    }
+    
 }
+

@@ -8,21 +8,25 @@
 import UIKit
 
 class TimerViewController: UIViewController {
-
+    
+    public var timer: Timer?
+    
+    public var taskArray: [Task] = [] {didSet {timersTableView.reloadData()}}
+    
     private lazy var views = Views()
     
-    internal var timersArray = [String: String]()
+    internal var isButtonTapped = false
     
     internal let idCell = "identifierCell"
     
     private lazy var addingTimerLabel = views.addingTimerLabel
-
+    
     internal lazy var nameTimerTextField = views.nameTimerTextField
-
+    
     internal lazy var timeInSecTextField = views.timeInSecTextField
-
+    
     private lazy var addButton = views.addButton
-
+    
     private lazy var timersTableView = views.timersTableView
     
     override func viewDidLoad() {
@@ -47,7 +51,7 @@ class TimerViewController: UIViewController {
         let tappedAround = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndAction))
         view.addGestureRecognizer(tappedAround)
     }
-
+    
     //MARK: - adding constraints
     private func addConstraints() {
         view.addSubview(addingTimerLabel)
@@ -82,7 +86,64 @@ class TimerViewController: UIViewController {
     @objc func dismissKeyboardAndAction(sender: Any) {
         view.endEditing(true)
         if sender as! NSObject == addButton {
+            guard let name = nameTimerTextField.text else {return }
+            guard let time = timeInSecTextField.text else {return }
+            guard name.trimmingCharacters(in: .whitespacesAndNewlines) != "", time.trimmingCharacters(in: .whitespacesAndNewlines) != "" else {
+                if name.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                    nameTimerTextField.layer.borderColor = UIColor.red.cgColor
+                }
+                if time.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                    timeInSecTextField.layer.borderColor = UIColor.red.cgColor
+                }
+                return
+            }
+            guard time != "0" else {
+                timeInSecTextField.layer.borderColor = UIColor.red.cgColor
+                return }
+            guard let seconds = Int(time) else {return }
+            createTimer()
+            DispatchQueue.main.async {
+                let task = Task(name: name, timeLeft: seconds)
+                self.taskArray.append(task)
+            }
+        }
+    }
+    
+    
+    func createTimer() {
+        if timer == nil {
+            let timer = Timer(timeInterval: 1.0,
+                              target: self,
+                              selector: #selector(updateTimer),
+                              userInfo: nil,
+                              repeats: true)
+            RunLoop.current.add(timer, forMode: .common)
+            timer.tolerance = 0.1
             
+            self.timer = timer
+        }
+    }
+    
+    func cancelTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    @objc func updateTimer() {
+        guard let visibleRowsIndexPaths = timersTableView.indexPathsForVisibleRows else {
+            return
+        }
+        
+        for indexPath in visibleRowsIndexPaths {
+            if let cell = timersTableView.cellForRow(at: indexPath) as? CustomCell {
+                cell.updateTime()
+                if taskArray[indexPath.row].completed {
+                    taskArray.remove(at: indexPath.row)
+                }
+                if taskArray.count == 0 {
+                    cancelTimer()
+                }
+            }
         }
     }
 }
