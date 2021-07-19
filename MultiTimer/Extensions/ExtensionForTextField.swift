@@ -16,7 +16,9 @@ extension TimerViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor =  UIColor.gray.cgColor
-        textField.text = ""
+        if textField.layer.borderColor != UIColor.gray.cgColor {
+            textField.layer.borderColor =  UIColor.gray.cgColor
+            textField.text = ""
+        }
     }
 }

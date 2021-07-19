@@ -24,19 +24,24 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath) as? CustomCell else {return UITableViewCell()}
         cell.task = taskArray[indexPath.row]
         getImage(sender: cell.pauseButton, condition: cell.task?.isPaused ?? false)
-        cell.buttonAction = { sender in
+        cell.startStop = { sender in
             guard let task = cell.task else {return }
             task.isPaused = !task.isPaused
             self.getImage(sender: sender, condition: task.isPaused)
         }
 
+        cell.delete = { sender in
+            cell.task?.completed = true
+        }
         cell.contentView.isUserInteractionEnabled = false
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Таймеры"
+        return NSLocalizedString("header title", comment: "")
     }
+    
+
     
     //MARK: -change image for pause button
     private func getImage(sender: UIButton, condition: Bool) {

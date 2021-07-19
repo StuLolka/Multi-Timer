@@ -19,6 +19,9 @@ final public class CustomCell: UITableViewCell {
     public let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.4
         return label
     }()
     
@@ -27,23 +30,39 @@ final public class CustomCell: UITableViewCell {
         but.setImage(UIImage(systemName: "pause"), for: .normal)
         but.translatesAutoresizingMaskIntoConstraints = false
         but.isUserInteractionEnabled = true
-        but.addTarget(self, action: #selector(test), for: .touchUpInside)
+        but.addTarget(self, action: #selector(stopStartTimer), for: .touchUpInside)
         return but
     }()
+    
+    lazy public var deleteButton: UIButton = {
+        let but = UIButton()
+        but.tintColor = .blue
+        but.setImage(.remove, for: .normal)
+        but.translatesAutoresizingMaskIntoConstraints = false
+        but.isUserInteractionEnabled = true
+        but.addTarget(self, action: #selector(deleteTimer), for: .touchUpInside)
+        return but
+    }()
+    
     
     public let timeLeftLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.4
         return label
     }()
     
-    public var buttonAction: ((UIButton) -> Void)?
+    public var startStop: ((UIButton) -> Void)?
+    
+    public var delete: ((UIButton) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(nameLabel)
         addSubview(pauseButton)
+        addSubview(deleteButton)
         addSubview(timeLeftLabel)
         addConstraints()
     }
@@ -59,13 +78,18 @@ final public class CustomCell: UITableViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             pauseButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            pauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pauseButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -30),
             pauseButton.heightAnchor.constraint(equalToConstant: bounds.height * 2/3),
             pauseButton.widthAnchor.constraint(equalTo: heightAnchor),
             
-            timeLeftLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
+            deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            deleteButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 30),
+            deleteButton.heightAnchor.constraint(equalToConstant: bounds.height * 2/3),
+            deleteButton.widthAnchor.constraint(equalTo: heightAnchor),
+            
+            timeLeftLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
             timeLeftLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            timeLeftLabel.leftAnchor.constraint(equalTo: pauseButton.rightAnchor, constant: 5)
+            timeLeftLabel.leftAnchor.constraint(equalTo: deleteButton.rightAnchor, constant: 5)
             
         ])
         
@@ -79,12 +103,16 @@ final public class CustomCell: UITableViewCell {
             task.completed = true
             return
         }
-        let days = secondsLeft / 86400
+        let yesrs = secondsLeft / 31536000
+        let days = secondsLeft / 86400 % 365
         let hours = secondsLeft / 3600 % 24
         let minutes = secondsLeft / 60 % 60
         let seconds = secondsLeft % 60
         
         var times: [String] = []
+        if yesrs > 0 {
+            times.append("\(yesrs)y")
+        }
         if days > 0 {
             times.append("\(days)d")
         }
@@ -99,8 +127,12 @@ final public class CustomCell: UITableViewCell {
         timeLeftLabel.text = times.joined(separator: " ")
     }
     
-    @objc func test(sender: UIButton) {
-        buttonAction?(sender)
+    @objc func stopStartTimer(sender: UIButton) {
+        startStop?(sender)
+    }
+    
+    @objc func deleteTimer(sender: UIButton) {
+        delete?(sender)
     }
 }
 

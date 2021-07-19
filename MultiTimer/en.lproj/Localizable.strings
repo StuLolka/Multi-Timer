@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  MultiTimer
+
+  Created by Сэнди Белка on 19.07.2021.
+  
+*/
+
+"header title" = "Timers";
+"name error" = "The names should be different!";
+"title" = "Multi timer";
+"error value" = "Enter the correct value";
+"too much value" = "Too much value";
+"add timers" = "Add timers";
+"timer name" = "Timer name";
+"time in seconds" = "Time in seconds";
+"add button title" = "Add";

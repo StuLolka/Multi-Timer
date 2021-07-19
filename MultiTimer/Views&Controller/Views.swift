@@ -12,14 +12,14 @@ final class Views {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .systemGray
-        label.text = "Добавление таймеров"
+        label.text = NSLocalizedString("add timers", comment: "")
         return label
     }()
 
     public let nameTimerTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Название таймера"
+        textField.placeholder = NSLocalizedString("timer name", comment: "")
         textField.backgroundColor = UIColor(named: "BackgroundTextFieldColor")
         textField.layer.borderWidth = 0.3
         textField.layer.borderColor = UIColor.gray.cgColor
@@ -30,7 +30,7 @@ final class Views {
     public let timeInSecTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Время в секундах"
+        textField.placeholder = NSLocalizedString("time in seconds", comment: "")
         textField.backgroundColor = UIColor(named: "BackgroundTextFieldColor")
         textField.layer.borderWidth = 0.3
         textField.layer.borderColor = UIColor.gray.cgColor
@@ -42,7 +42,7 @@ final class Views {
     public let addButton: UIButton = {
         let but = UIButton()
         but.translatesAutoresizingMaskIntoConstraints = false
-        but.setTitle("Добавить", for: .normal)
+        but.setTitle(NSLocalizedString("add button title", comment: ""), for: .normal)
         but.backgroundColor = UIColor(named: "BackgroundAddButton")
         but.setTitleColor(.systemBlue, for: .normal)
         but.layer.cornerRadius = 10

@@ -9,7 +9,7 @@ import UIKit
 
 class TimerViewController: UIViewController {
     
-    internal let nameError = "Имена должны различаться!"
+    internal let nameError = NSLocalizedString("name error", comment: "")
     
     public var timer: Timer?
     
@@ -31,17 +31,22 @@ class TimerViewController: UIViewController {
     
     private lazy var addButton = views.addButton
     
-    private lazy var timersTableView = views.timersTableView
+    internal lazy var timersTableView = views.timersTableView
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Мульти таймер"
+        title = NSLocalizedString("title", comment: "")
         addButton.addTarget(self, action: #selector(dismissKeyboardAndAction), for: .touchUpInside)
         timersTableView.register(CustomCell.self, forCellReuseIdentifier: idCell)
         addConstraints()
         addTappedAround()
         delegateAndDataSource()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        addButton.heightAnchor.constraint(equalToConstant: nameTimerTextField.bounds.height * 1.25).isActive = true
     }
     
     private func delegateAndDataSource() {
@@ -71,14 +76,17 @@ class TimerViewController: UIViewController {
             nameTimerTextField.topAnchor.constraint(equalTo: addingTimerLabel.bottomAnchor, constant: 30),
             nameTimerTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             nameTimerTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            nameTimerTextField.heightAnchor.constraint(equalToConstant: view.bounds.height / 26),
             
             timeInSecTextField.topAnchor.constraint(equalTo: nameTimerTextField.bottomAnchor, constant: 15),
             timeInSecTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             timeInSecTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            timeInSecTextField.heightAnchor.constraint(equalTo: nameTimerTextField.heightAnchor),
             
             addButton.topAnchor.constraint(equalTo: timeInSecTextField.bottomAnchor, constant: 30),
             addButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+//            addButton.heightAnchor.constraint(equalToConstant: nameTimerTextField.bounds.height * 2),
             
             timersTableView.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 30),
             timersTableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
@@ -125,8 +133,22 @@ class TimerViewController: UIViewController {
             }
             guard time != "0" else {
                 timeInSecTextField.layer.borderColor = UIColor.red.cgColor
-                return }
-            guard let seconds = Int(time) else {return }
+                return
+            }
+            
+            if time.first == "0" {
+                returnError(text: NSLocalizedString("error value", comment: ""))
+                return
+            }
+            
+            guard let seconds = Int(time) else {
+                returnError(text: NSLocalizedString("too much value", comment: ""))
+                return
+            }
+            guard seconds <= 3122064000 else {
+                returnError(text: NSLocalizedString("too much value", comment: ""))
+                return
+            }
             nameTimerTextField.text = ""
             timeInSecTextField.text = ""
             createTimer()
@@ -136,6 +158,11 @@ class TimerViewController: UIViewController {
             }
             
         }
+    }
+    
+    private func returnError(text: String) {
+        timeInSecTextField.layer.borderColor = UIColor.red.cgColor
+        timeInSecTextField.text = text
     }
     
     //MARK: - create timer
@@ -163,7 +190,7 @@ class TimerViewController: UIViewController {
         
         for task in taskArray {
             if !task.isPaused {
-                task.secondsLeft -= 4
+                task.secondsLeft -= 1
             }
         }
         
