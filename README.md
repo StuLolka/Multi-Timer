@@ -1,3 +1,4 @@
+[![ru](https://img.shields.io/badge/Lang-RU-red.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.ru.md)
 # Multi-Timer
 
 
