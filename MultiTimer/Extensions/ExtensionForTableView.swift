@@ -8,6 +8,9 @@
 import UIKit
 
 extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskArray.count
     }
@@ -26,6 +29,7 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
             task.isPaused = !task.isPaused
             self.getImage(sender: sender, condition: task.isPaused)
         }
+
         cell.contentView.isUserInteractionEnabled = false
         return cell
     }

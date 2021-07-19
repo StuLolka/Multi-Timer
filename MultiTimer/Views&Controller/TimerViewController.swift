@@ -155,8 +155,16 @@ class TimerViewController: UIViewController {
     }
     
     @objc func updateTimer() {
+        
+        
         guard let visibleRowsIndexPaths = timersTableView.indexPathsForVisibleRows else {
             return
+        }
+        
+        for task in taskArray {
+            if !task.isPaused {
+                task.secondsLeft -= 4
+            }
         }
         
         for indexPath in visibleRowsIndexPaths {

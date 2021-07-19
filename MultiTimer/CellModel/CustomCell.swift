@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomCell: UITableViewCell {
+final public class CustomCell: UITableViewCell {
     
     var task: Task? {
         didSet {
@@ -22,8 +22,8 @@ final class CustomCell: UITableViewCell {
         return label
     }()
     
-    lazy public var pauseButton: ExtraPropertyButton = {
-        let but = ExtraPropertyButton()
+    lazy public var pauseButton: UIButton = {
+        let but = UIButton()
         but.setImage(UIImage(systemName: "pause"), for: .normal)
         but.translatesAutoresizingMaskIntoConstraints = false
         but.isUserInteractionEnabled = true
@@ -79,25 +79,24 @@ final class CustomCell: UITableViewCell {
             task.completed = true
             return
         }
-        
-        let hours = secondsLeft / 3600
+        let days = secondsLeft / 86400
+        let hours = secondsLeft / 3600 % 24
         let minutes = secondsLeft / 60 % 60
         let seconds = secondsLeft % 60
         
         var times: [String] = []
+        if days > 0 {
+            times.append("\(days)d")
+        }
         if hours > 0 {
             times.append("\(hours)h")
         }
         if minutes > 0 {
             times.append("\(minutes)m")
         }
-        times.append("\(seconds)s")
-
-        timeLeftLabel.text = times.joined(separator: " ")
-        if !task.isPaused {
-            task.secondsLeft -= 1
-        }
         
+        times.append("\(seconds)s")
+        timeLeftLabel.text = times.joined(separator: " ")
     }
     
     @objc func test(sender: UIButton) {
