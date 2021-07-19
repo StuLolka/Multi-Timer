@@ -1,12 +1,12 @@
 # Мульти-Таймер
 
 
-Иконка приложения.
+Иконка приложения:
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/appIcon.png" width="154" height="156">
 
 
-Как выглядит приложение.
+Как выглядит приложение:
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/Timers3.png" width="844" height="526">
 
@@ -24,9 +24,9 @@
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/TimerStartsWith0.png" width="344" height="120">
 
-Пример, когда вы пытаетесь дать одинаковые имена таймерам.
+Пример, когда вы пытаетесь дать одинаковые имена таймерам:
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/NameDifferent.png" width="595" height="473">
 
-Также я добавила ограничение(99 лет).
+Также я добавила ограничение(99 лет):
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/tooMuch.png" width="219" height="166">
