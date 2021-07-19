@@ -23,9 +23,10 @@ The timer names cannot be the same, and the time in seconds starts at 0 or excee
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/TimerStartsWith0.png" width="344" height="120">
 
-Examples, then you can try to not give a name or try to give the same names:
+Examples, then you can try to not give a name or try to give the same names.
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/NameDifferent.png" width="595" height="473">
 
+Also, I have done the limitation(99 years).
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/tooMuch.png" width="219" height="166">
