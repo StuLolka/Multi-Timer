@@ -1,4 +1,4 @@
-# Multi-Timer
+# Мульти-Таймер
 
 
 Иконка приложения.
@@ -20,7 +20,7 @@
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/Timers1.png" width="840" height="532">
 
 
-Имена таймеров не могут быть одинаковыми, а время в секундах начинается с 0 или превышает 3122064000. По истечении времени таймер удаляется из списка.
+Имена таймеров не могут быть одинаковыми, а время в секундах начинается с 0 и не превышает 3122064000. По истечении времени таймер удаляется из списка.
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/TimerStartsWith0.png" width="344" height="120">
 
