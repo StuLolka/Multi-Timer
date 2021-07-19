@@ -1,12 +1,12 @@
 # Multi-Timer
 
 
-App icon
+App icon:
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/appIcon.png" width="154" height="156">
 
 
-App looks like
+App looks like:
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/Timers3.png" width="844" height="526">
 
@@ -23,10 +23,10 @@ The timer names cannot be the same, and the time in seconds starts at 0 or excee
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/TimerStartsWith0.png" width="344" height="120">
 
-Examples, when you can try to give the same names.
+Examples, when you can try to give the same names:
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/NameDifferent.png" width="595" height="473">
 
-Also, I have done the limitation(99 years).
+Also, I have done the limitation(99 years):
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/tooMuch.png" width="219" height="166">
