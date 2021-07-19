@@ -1,3 +1,4 @@
+[![eng](https://img.shields.io/badge/Lang-ENG-brightgreen.svg)](https://github.com/StuLolka/Multi-Timer/blob/main/README.md)
 # Мульти-Таймер
 
 
