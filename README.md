@@ -23,6 +23,8 @@ The timer names cannot be the same, and the time in seconds starts at 0 or excee
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/TimerStartsWith0.png" width="344" height="120">
 
+
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/NameDifferent.png" width="595" height="473">
+
 
 <img src="https://github.com/StuLolka/Multi-Timer/blob/main/Screens/tooMuch.png" width="219" height="166">
