@@ -14,7 +14,7 @@ class TimerViewController: UIViewController {
     public var timer: Timer?
     
     public var taskArray: [Task] = [] {didSet {
-        taskArray = sortChannelsByDate(messagesArray: taskArray)
+        taskArray = sortTimersByTime(messagesArray: taskArray)
         timersTableView.reloadData()}}
     
     private lazy var views = Views()
@@ -87,19 +87,20 @@ class TimerViewController: UIViewController {
         ])
     }
     
-    private func sortChannelsByDate(messagesArray: [Task]) -> [Task] {
+    //MARK: - sort timers
+    private func sortTimersByTime(messagesArray: [Task]) -> [Task] {
         
         let arrayWillReturn = taskArray.sorted { (secondsLeft1, secondsLeft2) -> Bool in
-            let date1 = secondsLeft1.secondsLeft
-            let date2 = secondsLeft2.secondsLeft
-            return date1 > date2
+            let secondsLeft1 = secondsLeft1.secondsLeft
+            let secondsLeft2 = secondsLeft2.secondsLeft
+            return secondsLeft1 > secondsLeft2
         }
         return arrayWillReturn
     }
     
     @objc func dismissKeyboardAndAction(sender: Any) {
         view.endEditing(true)
-        if sender as! NSObject == addButton {
+        if sender as? NSObject == addButton {
             guard let name = nameTimerTextField.text else {return }
             guard let time = timeInSecTextField.text else {return }
             guard name != nameError else {return }
@@ -112,9 +113,9 @@ class TimerViewController: UIViewController {
                 }
                 return
             }
-            var count = 0
             
-            while count < taskArray.count {
+            var count = 0
+            while count < taskArray.count { //checking for identical names
                 if taskArray[count].name == name {
                     nameTimerTextField.text = nameError
                     nameTimerTextField.layer.borderColor = UIColor.red.cgColor
@@ -137,8 +138,8 @@ class TimerViewController: UIViewController {
         }
     }
     
-    
-    func createTimer() {
+    //MARK: - create timer
+    private func createTimer() {
         if timer == nil {
             let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .common)
@@ -147,7 +148,8 @@ class TimerViewController: UIViewController {
         }
     }
     
-    func cancelTimer() {
+    //MARK: - turn off timer
+    private func cancelTimer() {
         timer?.invalidate()
         timer = nil
     }
@@ -159,12 +161,7 @@ class TimerViewController: UIViewController {
         
         for indexPath in visibleRowsIndexPaths {
             if let cell = timersTableView.cellForRow(at: indexPath) as? CustomCell {
-                if !cell.pauseButton.isPressed {
-                    cell.updateTime()
-                }
-//                else {
-//                    taskArray = sortChannelsByDate(messagesArray: taskArray)
-//                }
+                cell.updateTime()
                 if taskArray[indexPath.row].completed {
                     taskArray.remove(at: indexPath.row)
                 }

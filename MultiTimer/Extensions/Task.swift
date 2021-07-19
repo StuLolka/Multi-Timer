@@ -10,6 +10,7 @@ import Foundation
 final class Task {
     public let name: String
     public var secondsLeft: Int
+    public var isPaused = false
     public var completed = false
     
     init(name: String, timeLeft: Int) {

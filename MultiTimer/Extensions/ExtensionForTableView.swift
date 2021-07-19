@@ -20,7 +20,12 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath) as? CustomCell else {return UITableViewCell()}
         cell.task = taskArray[indexPath.row]
-        cell.pauseButton.addTarget(self, action: #selector(stopStartTimer), for: .touchUpInside)
+        getImage(sender: cell.pauseButton, condition: cell.task?.isPaused ?? false)
+        cell.buttonAction = { sender in
+            guard let task = cell.task else {return }
+            task.isPaused = !task.isPaused
+            self.getImage(sender: sender, condition: task.isPaused)
+        }
         cell.contentView.isUserInteractionEnabled = false
         return cell
     }
@@ -29,9 +34,9 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
         return "Таймеры"
     }
     
-    @objc func stopStartTimer(sender: ExtraPropertyButton) {
-        sender.isPressed = !sender.isPressed
-        switch sender.isPressed {
+    //MARK: -change image for pause button
+    private func getImage(sender: UIButton, condition: Bool) {
+        switch condition {
         case true:
             sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
         case false:

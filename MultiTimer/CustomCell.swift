@@ -22,11 +22,12 @@ final class CustomCell: UITableViewCell {
         return label
     }()
     
-    public let pauseButton: ExtraPropertyButton = {
+    lazy public var pauseButton: ExtraPropertyButton = {
         let but = ExtraPropertyButton()
         but.setImage(UIImage(systemName: "pause"), for: .normal)
         but.translatesAutoresizingMaskIntoConstraints = false
         but.isUserInteractionEnabled = true
+        but.addTarget(self, action: #selector(test), for: .touchUpInside)
         return but
     }()
     
@@ -36,6 +37,8 @@ final class CustomCell: UITableViewCell {
         label.textAlignment = .right
         return label
     }()
+    
+    public var buttonAction: ((UIButton) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,10 +72,7 @@ final class CustomCell: UITableViewCell {
     }
     
     public func updateTime() {
-        guard let task = task else {
-            return
-        }
-
+        guard let task = task else {return }
         let secondsLeft = task.secondsLeft
         if secondsLeft <= 0 {
             timeLeftLabel.text = "0"
@@ -94,9 +94,14 @@ final class CustomCell: UITableViewCell {
         times.append("\(seconds)s")
 
         timeLeftLabel.text = times.joined(separator: " ")
-        task.secondsLeft -= 1
+        if !task.isPaused {
+            task.secondsLeft -= 1
+        }
         
     }
     
+    @objc func test(sender: UIButton) {
+        buttonAction?(sender)
+    }
 }
 
